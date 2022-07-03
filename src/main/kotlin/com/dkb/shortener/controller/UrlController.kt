@@ -1,6 +1,7 @@
 package com.dkb.shortener.controller
 
 import com.dkb.shortener.dto.UrlRequest
+import com.dkb.shortener.service.UrlService
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestBody
+import java.util.*
 import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/shortener")
-class UrlController() {
+class UrlController(private var urlService: UrlService) {
 
     /**
      * API to get a full URL.
@@ -32,8 +34,11 @@ class UrlController() {
     )
     @GetMapping("/{hashValue}")
     fun getFullUrl(@PathVariable hashValue : @NotNull String) : ResponseEntity<String> {
-
-        return ResponseEntity.status(HttpStatus.OK).body("")
+        val urlOptional : Optional<String> = urlService.getFullUrl(hashValue)
+        if (urlOptional.isEmpty) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(urlOptional.get())
     }
 
     /**
@@ -49,7 +54,7 @@ class UrlController() {
     )
     @PostMapping
     fun getShortUrl(@RequestBody urlRequest: UrlRequest) : ResponseEntity<String> {
-        return ResponseEntity.status(HttpStatus.CREATED).body("")
+        return ResponseEntity.status(HttpStatus.CREATED).body(urlService.getShortUrl(urlRequest))
     }
 
 }

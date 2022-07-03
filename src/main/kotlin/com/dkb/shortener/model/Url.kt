@@ -4,7 +4,7 @@ import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
-class Url() {
+class Url {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
