@@ -42,6 +42,20 @@ able to resolve the full URL.
 ***
 ![Alt text](URL.png?raw=true)
 
+## Installation
+### Pre-requisites
+
+- [Docker](https://docs.docker.com/engine/install/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+### Run the application
+Run the below commands to start the application via docker
+
+    docker-compose up --build
+
+### How do we access the service?
+We can access the application from the [swagger ui](http://localhost:8080/swagger-ui/index.html)
+
 ## Development
 ***
 ### Environment setup
