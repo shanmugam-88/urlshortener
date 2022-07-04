@@ -5,6 +5,8 @@
 This service  takes a URL and returns a shortened URL, other way around of course, we should be
 able to resolve the full URL. 
 
+[![Java CI with Maven](https://github.com/shanmugam-88/urlshortener/actions/workflows/maven.yml/badge.svg)](https://github.com/shanmugam-88/urlshortener/actions/workflows/maven.yml)
+
 ### Tech stack overview
 * Kotlin
 * spring-boot-starter-web (Spring boot framework V2.5)
