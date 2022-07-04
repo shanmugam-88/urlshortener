@@ -50,7 +50,7 @@ class UrlControllerTests(@Autowired val restTemplate: TestRestTemplate,
 
         val getEntity = restTemplate.getForEntity("/shortener/"+entity.body, String::class.java)
         assertNotNull(getEntity)
-        assertEquals(HttpStatus.OK, getEntity.statusCode)
+        assertEquals(HttpStatus.FOUND, getEntity.statusCode)
         assertNotNull(getEntity.body)
         assertEquals(url, getEntity.body)
     }

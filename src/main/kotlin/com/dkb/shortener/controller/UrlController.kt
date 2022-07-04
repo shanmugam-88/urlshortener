@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestBody
+import java.net.URI
 import java.util.*
 import javax.validation.constraints.NotNull
 
@@ -28,7 +29,7 @@ class UrlController(private var urlService: UrlService) {
      */
     @ApiOperation(value = "API to get a Full URL.")
     @ApiResponses(
-        ApiResponse(code = 200, message = "Created"),
+        ApiResponse(code = 302, message = "Found"),
         ApiResponse(code = 400, message = "Bad Request"),
         ApiResponse(code = 404, message = "Not Found")
     )
@@ -38,7 +39,7 @@ class UrlController(private var urlService: UrlService) {
         if (urlOptional.isEmpty) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
         }
-        return ResponseEntity.status(HttpStatus.OK).body(urlOptional.get())
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(urlOptional.get())).body(urlOptional.get());
     }
 
     /**

@@ -1,5 +1,5 @@
 # Getting Started
-
+***
 ### Overview
 
 This service  takes a URL and returns a shortened URL, other way around of course, we should be
@@ -36,10 +36,12 @@ able to resolve the full URL.
 * Expiration date of URL
 
 
-### Technical Design Diagram
+## Technical Design Diagram
+***
 ![Alt text](URL.png?raw=true)
 
 ## Development
+***
 ### Environment setup
 For development, we need the following installed:
 - [Docker](https://docs.docker.com/engine/install/)
@@ -57,6 +59,7 @@ To run the test
     mvn test
 
 ### Test Data
+***
 
 1. Get Shorter URL a to-do.
    **Request**
@@ -68,7 +71,8 @@ To run the test
     ```sh
       lXB 
    ```
-2. Invalid Url Test case
+2. Invalid Url Test case.
+   
    **Request**
    ```sh
       curl -X POST "http://localhost:8080/shortener" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"url\": \"www.dkbcodefactory.com\"}"
@@ -82,16 +86,20 @@ To run the test
           "message": "Invalid Url"
         }
    ```
-3. Get a full RUL.
+3. Get a full URL. The response status code is 302.(Our client should redirect it to actual URL)
+   
    **Request**
    ```sh
     curl -X GET "http://localhost:8080/shortener/lXB" -H "accept: */*"
     ```
-
+   
    **Response**
-    ```sh
-    https://www.dkbcodefactory.com 
-   ```
+    
+    We can see the proper redirection.
+
+    ![Alt text](Redirection.png?raw=true)
+
+   
 4. Invalid HashCode.
    **Request**
    ```sh
@@ -102,3 +110,31 @@ To run the test
     ```sh
         404 Status Code. 
    ```
+
+###Grafana Data and Dashboard configuration
+***
+
+#### Data configuration
+* Login into [Grafana](http://localhost:3000/)
+  
+   Username: admin
+   Password: admin
+   
+* Goto Data Source and add our Prometheus as data source
+   ![Alt text](Add-Data-source)
+* Add Prometheus URL (http://prometheus:9090)
+   ![Alt text](prometheus.png)
+  
+#### Dashboard configuration
+We can add this [Spring Boot 2.1](https://grafana.com/grafana/dashboards/11378) System Monitor as our Dashboard.
+* Click on import dashboard, Please [refer](https://grafana.com/docs/grafana/latest/dashboards/export-import/#import-dashboard) here.
+* Enter this spring boot dashboard id - 11378, select prometheus data source and import it.
+  ![Alt text](Import.png)
+  
+### Grafana Monitoring
+***
+* Once we set up the data and dashboard we can monitor our application like CUP usage, memory usage, request / response time.
+
+   ![Alt text](Basic.png)
+
+   ![Alt text](Request-Response.png)

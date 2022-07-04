@@ -53,7 +53,7 @@ class UrlControllerTests {
         Mockito.`when`(urlRepository.findById(Mockito.any())).thenReturn(Optional.of(getUrlModel()))
         val responseEntity = urlController?.getFullUrl(hashids.encode(12))
         Assertions.assertNotNull(responseEntity)
-        Assertions.assertEquals(HttpStatus.OK, responseEntity?.statusCode)
+        Assertions.assertEquals(HttpStatus.FOUND, responseEntity?.statusCode)
         Assertions.assertEquals(getUrlModel().url, responseEntity?.body)
     }
 
